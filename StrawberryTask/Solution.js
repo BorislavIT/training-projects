@@ -1,7 +1,5 @@
-function Solve(){
-let row = 8;
-let col = 10;
-let days = 2;
+
+function Solve(row, col, days, firstX, firstY, secondX, secondY){
 var strawBerries = new Array(row);
 
 for (var i = 0; i < strawBerries.length; i++) {
@@ -15,19 +13,18 @@ for (let row = 0; row < strawBerries.length; row++) {
     }
 }
 
-let firstStrawBerryX = 4;
-let firstStrawBerryY = 8;
+let firstStrawBerryX = firstX - 1;
+let firstStrawBerryY = firstY - 1;
 strawBerries[firstStrawBerryX][firstStrawBerryY] = 1;
 
-let secondStrawBerryX = 2;
-let secondStrawBerryY = 7;
+let secondStrawBerryX = secondX - 1;
+let secondStrawBerryY = secondY - 1;
 strawBerries[secondStrawBerryX][secondStrawBerryY] = 1;
 
 for (let i = 0; i < days; i++) {
     rotStrawBerriesForADay(strawBerries);
 }
 
-logArray(strawBerries);
 console.log(findNumberOfHealthyStrawberries(strawBerries));
 }
 
@@ -171,4 +168,13 @@ function rotStrawberriesAroundStrawberry(array, x, y){
     }
 }
 
-Solve();
+let row = 100;
+let col = 100;
+let days = 60;
+let firstStrawBerryX = 1;
+let firstStrawBerryY = 1;
+
+let secondStrawBerryX = 100;
+let secondStrawBerryY = 100;
+
+Solve(row, col, days, firstStrawBerryX, firstStrawBerryY, secondStrawBerryX, secondStrawBerryY);
