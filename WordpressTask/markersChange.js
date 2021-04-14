@@ -1,104 +1,83 @@
-
 function markersCountryChange(value) {
-    let markersJson = document.getElementById('markersData').textContent;
-    let markers = JSON.parse(markersJson);
- 
-    for (var o in markers) {
- 
-      let lati = markers[o].lat;
-      let lngi = markers[o].lng;
-      let city = markers[o].city;
-      let cCode = markers[o].cCode;
- 
- 
+    if(checkIfResultsShouldBeCombined().checked){
+      let elevation = $('#elevation').val();
+     markersCountryAndEvaluationChange(value, elevation);
     }
-    let defaultLatLng = {
+    else{
+   $.ajax({
+          type: "POST",
+          url: "http://localhost/blog/wp-content/themes/twentynineteen/show-markers-based-on-chosen-country.php",
+          data: {
+              "ShowMarkersInCountry": value
+          },
+          success:function(response){
+          showFilteredCountries(response);
+          }});
+}}
+
+function markersCountryAndEvaluationChange(value, elevation) {
+   $.ajax({
+          type: "POST",
+          url: "http://localhost/blog/wp-content/themes/twentynineteen/show-markers-based-on-country-and-elevation.php",
+          data: {
+              par1 : value, par2 : elevation
+          },
+          success:function(response){
+          showFilteredCountries(response);
+          }});
+}
+
+function hideOrShowElevation() {
+if(checkIfResultsShouldBeCombined().checked){
+  $( "#elevationSlider" ).show();
+}
+  else{
+  $( "#elevationSlider" ).hide();
+  }
+}
+
+function checkIfResultsShouldBeCombined() {
+return document.getElementById('addElevation');
+}
+
+function showFilteredCountries(r){
+    if(r === '0 results'){
+    document.getElementById('markersCount').textContent = 'No markers in that country =(';
+    return;
+  }
+  let newMarkers = JSON.parse(r);
+  let defaultLatLng = {
       lat: 42.271469,
       lng: 23.130453
-    };
- 
-    var latlng = new google.maps.LatLng(defaultLatLng);
-    var myOptions = {
+  };
+
+  var latlng = new google.maps.LatLng(defaultLatLng);
+  var myOptions = {
       zoom: 2,
       center: latlng,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       mapTypeControl: false
-    };
- 
-    var map = new google.maps.Map(document.getElementById('map'), myOptions);
-    var infowindow = new google.maps.InfoWindow(),
+  };
+
+  var map = new google.maps.Map(document.getElementById('map'), myOptions);
+  var infowindow = new google.maps.InfoWindow(),
       marker, lat, lng;
-    for (var o in markers) {
-      cCode = markers[o].cCode;
-      if (cCode !== value) {
-        continue;
-        }
-        lati = markers[o].lat;
-        lngi = markers[o].lng;
-        city = markers[o].city;
- 
-        var myNewLatLng = {
+  document.getElementById('markersCount').textContent = 'Amount of markers: ' + newMarkers.length;
+  for (var o in newMarkers) {
+
+      lati = newMarkers[o].lat;
+      lngi = newMarkers[o].lng;
+      city = newMarkers[o].city;
+      cCode = newMarkers[o].cCode;
+
+      var myNewLatLng = {
           lat: parseFloat(lati),
           lng: parseFloat(lngi)
-        };
-        new google.maps.Marker({
+      };
+      new google.maps.Marker({
           position: myNewLatLng,
           map,
           title: cCode + ' ' + city
-        });
-      }
- 
-    }
- 
-  function markersCityChange(value) {
-    let markersJson = document.getElementById('markersData').textContent;
-    let markers = JSON.parse(markersJson);
- 
-    for (var o in markers) {
- 
-      let lati = markers[o].lat;
-      let lngi = markers[o].lng;
-      let city = markers[o].city;
-      let cCode = markers[o].cCode;
- 
- 
-    }
-    let defaultLatLng = {
-      lat: 42.271469,
-      lng: 23.130453
-    };
- 
-    var latlng = new google.maps.LatLng(defaultLatLng);
-    var myOptions = {
-      zoom: 2,
-      center: latlng,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      mapTypeControl: false
-    };
- 
-    var map = new google.maps.Map(document.getElementById('map'), myOptions);
-    var infowindow = new google.maps.InfoWindow(),
-      marker, lat, lng;
-    for (var o in markers) {
-      city = markers[o].city;
-      cCode = markers[o].cCode;
-      if (city !== value) {
-        continue;
-        }
-        lati = markers[o].lat;
-        lngi = markers[o].lng;
- 
-        var myNewLatLng = {
-          lat: parseFloat(lati),
-          lng: parseFloat(lngi)
-        };
-        new google.maps.Marker({
-          position: myNewLatLng,
-          map,
-          title: cCode + ' ' + city
-        });
-      }
- 
-    }
- 
- 
+      });
+  }
+  }
