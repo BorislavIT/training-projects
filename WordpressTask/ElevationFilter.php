@@ -28,8 +28,8 @@
     }
   echo "<div class='slidecontainer' id='elevationSlider' hidden=''>
   <center>
-    <label for='elevation'>Elevation</label><br>
-    <input type='range' min='$minElevation' max='$maxElevation' value='0' class='slider' id='elevation'>
+    <label for='elevation'>Elevation[m]</label><br>
+    <input type='range' min='$minElevation' max='$maxElevation' value='0' class='slider' id='elevation' oninput='this.nextElementSibling.value = \"-9999 -> \" + this.value'> <output>-9999 -> 0</output>
   </center>
   </div>";
 ?>

@@ -1,5 +1,5 @@
 <?php
-function ShowMarkersInCountryWithElevation($country, $elevation)
+function ShowMarkersBasedOnCity($city)
 {
     $servername = "localhost";
     $username = "wpuser";
@@ -8,9 +8,8 @@ function ShowMarkersInCountryWithElevation($country, $elevation)
 
     $conn = new mysqli($servername, $username, $password, $dbname);
 
-    $sql = "SELECT * FROM Markers as m JOIN Cities as c ON c.Id = m.CityId WHERE m.CountryCode = '$country' AND m.Elevation <= $elevation";
+    $sql = "SELECT * FROM Markers as m JOIN Cities AS c ON m.CityId = c.Id WHERE c.Id = '$city';";
     $data = $conn->query($sql);
-
     $arr1 = array();
     if ($data->num_rows > 0)
     {
@@ -40,7 +39,8 @@ function ShowMarkersInCountryWithElevation($country, $elevation)
     echo $markers;
 }
 
-    $value = $_POST['par1'];
-    $elevation = $_POST['par2'];
-    ShowMarkersInCountryWithElevation($value, $elevation);
+if (isset($_POST['ShowMarkersBasedOnCity']))
+{
+    ShowMarkersBasedOnCity($_POST['ShowMarkersBasedOnCity']);
+}
 ?>

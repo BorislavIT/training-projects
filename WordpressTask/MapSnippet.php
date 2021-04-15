@@ -6,17 +6,17 @@ $dbname = "wordpress";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-$sql = "SELECT * FROM Markers";
-$data = $conn->query($sql); 
+$allMarkersSql = "SELECT * FROM Markers AS m JOIN Cities AS c ON c.Id = m.CityId";
+$markersData = $conn->query($allMarkersSql); 
 
-$arr1 = array();
-if ($data->num_rows > 0) {
-  while($row = $data->fetch_assoc()) {
+$markersArray = array();
+if ($markersData->num_rows > 0) {
+  while($row = $markersData->fetch_assoc()) {
     array_push(
-      $arr1, 
+      $markersArray, 
       $row["SearchId"],
       $row["CountryCode"],
-      $row["City"],
+      $row["Name"],
       $row["SearchId"],
       $row["Latitude"],
       $row["Longitude"],
@@ -27,12 +27,12 @@ if ($data->num_rows > 0) {
 } else {
   echo "0 results";
 }
-foreach ($data as $key)
+foreach ($markersData as $key)
 {
 $locations[]=array( 
   'cCode'=>$key['CountryCode'],
   'searchID' => $key['SearchId'],
-  'city'=>$key['City'], 
+  'city'=>$key['Name'], 
   'lat'=>$key['Latitude'],
   'lng'=>$key['Longitude'] ,
   'timezone'=>$key['TimeZone'],

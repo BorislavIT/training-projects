@@ -9,12 +9,12 @@
     $sql = "SELECT * FROM Countries";
     $data = $conn->query($sql);
 
-    $arr1 = array();
+    $countriesArr = array();
     if ($data->num_rows > 0)
     {
         while ($row = $data->fetch_assoc())
         {
-            array_push($arr1, $row["CountryCode"], $row["Country"]);
+            array_push($countriesArr, $row["CountryCode"], $row["Name"]);
         }
     }
     else
@@ -25,7 +25,7 @@
     {
         $countries[] = array(
             'cCode' => $key['CountryCode'],
-            'Country' => $key['Country']
+            'Country' => $key['Name']
         );
     }
     echo '<label for="country">Choose a country:</label>';
@@ -38,12 +38,32 @@ foreach ($countries as $country) {
 }
 echo '</select>';
 
+$citiesQuery = "SELECT * FROM Cities";
+$citiesData = $conn->query($citiesQuery);
 
-// <select name="cities" id="cities" onchange="markersCityChange(this.value)">
-//  <option disabled="" selected="" value="">Select a city</option>
-//   <option value="Sofia">Sofia</option>
-//   <option value="Warren">Warren</option>
-//   <option value="Chapuka">Chapuka</option>
-// </select>';
+$citiesArr = array();
+    if ($citiesData->num_rows > 0)
+    {
+        while ($row = $citiesData->fetch_assoc())
+        {
+            array_push($citiesArr, $row["Id"], $row["Name"]);
+        }
+    }
+    else
+    {
+        echo "0 results";
+    }
+    foreach ($citiesData as $key)
+    {
+        $cities[] = array(
+            'Id' => $key['Id'],
+            'Name' => $key['Name']
+        );
+    }
+echo "<div id='citiesSelect' hidden=''><label for='city'>Choose a city:</label> 
+<select name='cities' id='cities' onchange='markersCityChange(this.value)'>
+<option disabled='' selected='' value=''>Select a city</option>
+</select>
+</div>";
 
 ?>
