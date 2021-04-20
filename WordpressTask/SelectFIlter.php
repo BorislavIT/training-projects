@@ -30,7 +30,7 @@
     }
     echo '<label for="country">Choose a country:</label>';
     echo '<select name="countries" id="countries" onchange="markersCountryChange(this.value)">';
-    echo '<option disabled="" selected="" value="">Select a country</option>';
+    echo '<option disabled="" selected="" value="disabledCountry">Select a country</option>';
 foreach ($countries as $country) {
     $countryCode = $country['cCode'];
     $countryName = $country['Country'];
@@ -65,5 +65,4 @@ echo "<div id='citiesSelect' hidden=''><label for='city'>Choose a city:</label>
 <option disabled='' selected='' value=''>Select a city</option>
 </select>
 </div>";
-
 ?>

@@ -47,7 +47,6 @@ for ($i = 0;$i < $amountOfMarkers;$i++)
                 {
                     $cityId = $confirmedCityRow["Id"];
                 }
-    
             }
             else
             {
