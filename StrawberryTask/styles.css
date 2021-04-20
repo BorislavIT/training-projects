@@ -1,0 +1,45 @@
+#inputForm {
+    padding-top: 100px;
+}
+
+.fTitle {
+    padding-top: 50px;
+    color: red
+}
+
+#submitBtn {
+    margin-top: 20px;
+}
+
+body {
+    background-color: black
+}
+
+#inputForm {
+    color: white
+}
+
+#visualizeStrawberries {
+    color: white
+}
+
+.padding-top-50 {
+    padding-top: 50px;
+}
+
+.btn-success {
+    height: 25px;
+    width: 25px;
+}
+
+.btn-danger {
+    height: 25px;
+    width: 25px;
+}
+
+#dummy-btn{
+    margin-right: 32px;
+    color:black;
+    background-color:black;
+    border-color:black;
+}
