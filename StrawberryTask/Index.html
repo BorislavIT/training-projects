@@ -23,17 +23,17 @@
             id="rows"
             placeholder="Enter number of rows"
             name="rows"
+            min="1"
           />
         </div>
-        <label for="cols">Columns [MAX=40]</label>
+        <label for="cols">Columns</label>
         <input
           type="number"
           class="form-control"
           id="cols"
-          placeholder="Enter number of columns [CURRENT MAX=40]"
+          placeholder="Enter number of columns"
           name="cols"
           min="1"
-          max="40"
         />
         <label for="days">Days</label>
         <input
@@ -42,6 +42,7 @@
           id="days"
           placeholder="Enter number of days"
           name="days"
+          min="1"
         />
         <label for="fStrawberry">First Strawberry coordinates in format: x, y</label>
         <input
@@ -61,16 +62,17 @@
         <button type="submit" class="btn btn-primary" id="submitBtn">
           Submit
         </button>
-          <div class="col text-center">
+          </div>
       </form>
         <center>
       <h1 class="fTitle" id="result">Result: &nbsp;</h1>
       </center>
-      <div id="visualizeStrawberries" class="row padding-top-50">
-      <div class ="row">
-     
-      </div>
+      
     </div>
+    <center>
+    <div id="visualizeStrawberries" class="padding-top-50">
+    </div>
+    </center>
   </body>
   <script
     src="https://code.jquery.com/jquery-3.6.0.js"

@@ -76,10 +76,10 @@ function logArray(array) {
 function printArray(array) {
     let element = $("#visualizeStrawberries")
     element.empty();
-    let healthyStrawberry = '<button type="button" class="btn btn-success"></button>';
-    let illStrawberry = '<button type="button" class="btn btn-danger"></button>';
+    let healthyStrawberry = '<span class="gDot"></span>';
+    let illStrawberry = '<span class="rDot"></span>';
   for (let row = 0; row < array.length; row++) {
-    let berries = '<div class="col-md-12">';
+    let berries = '';
     // if(row == 0){
     //     berries+='<button type="button" class="btn btn-danger" id="dummy-btn"></button>';
     // }
@@ -92,7 +92,7 @@ function printArray(array) {
         berries+=healthyStrawberry
       }
     }
-    berries+= "</div>"
+    berries+="<br />";
     element.append(berries)
   }
 }
@@ -206,7 +206,7 @@ function attachEventHandler() {
     let sBerry = formData[4]["value"];
 
     if (isNaN(rows) || isNaN(cols) || isNaN(days)) {
-      if (rows <= 0 || cols <= 0 || days <= 0 || cols>40) {
+      if (rows <= 0 || cols <= 0 || days <= 0) {
         alert("invalid input");
         return;
       }
