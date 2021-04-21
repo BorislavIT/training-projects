@@ -15,16 +15,26 @@ cursor = conn.cursor()
 
 names = []
 
-query = 'SELECT * FROM Town'
+query = 'SELECT * FROM Town AS t JOIN Municipality AS m ON t.MunicipalityId = m.Id JOIN Region AS r ON r.Id = m.RegionId'
 
 cursor.execute(query)
 
 result = cursor.fetchall()
 
+firstLine = "TownId  TownName   MunicipalityName    RegionName"
+names.append(firstLine)
+firstLine = ""
+names.append(firstLine)
 if len(result) != 0:
     for t in result:
+        townResult = '';
+        townId = t[0]
         name = t[1]
-        names.append(name)
+        mName = t[4]
+        rName = t[7]
+        townResult+= townId + " - " + name  + " - " + mName + " - " + rName
+
+        names.append(townResult)
         
 layout = [  [sg.Text('Listbox with search')],
             [sg.Input(do_not_clear=True, size=(200,10),enable_events=True, key='_INPUT_')],
